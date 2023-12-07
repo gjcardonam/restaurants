@@ -6,7 +6,7 @@ const restaurantController = async (req, res) => {
 
     try {
         const restaurants = await restaurantService(coordinateX, coordinateY);
-        res.status(200).json({restaurants});
+        res.status(200).json(restaurants);
     } catch (error) {
         res.status(500).json({ error: "Error looking for restaurants"})
     }

@@ -23,7 +23,24 @@ async function restaurantService(latitude, longitude){
 
     try {
         const response = await axios.post(url, requestBody, { headers });
-        return response.data.elements;
+        const restaurantsOVP = response.data.elements;
+        
+        const restaurants = restaurantsOVP.map(restaurant => {
+            if (restaurant.tags.name) {
+              return {
+                name: restaurant.tags.name,
+                lat: restaurant.lat,
+                lon: restaurant.lon
+              };
+            } else {
+                return {
+                  name: "Nombre no registrado",
+                  lat: restaurant.lat,
+                  lon: restaurant.lon
+                };
+              }
+          });
+        return restaurants;
     } catch (error) {
         throw error;
     }
